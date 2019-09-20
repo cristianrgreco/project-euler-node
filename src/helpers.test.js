@@ -10,6 +10,10 @@ describe('helpers', () => {
         assert.strictEqual([3, 3].reduce(_.product), 9);
     });
 
+    it('raises a number to the given power', () => {
+        assert.strictEqual(_.power(3)(2), 8);
+    });
+
     it('returns the last element of an array', () => {
         assert.strictEqual([1, 2, 3].reduce(_.last), 3);
     });
@@ -21,6 +25,14 @@ describe('helpers', () => {
     it('returns whether a value is even', () => {
         assert.strictEqual(_.isEven(1), false);
         assert.strictEqual(_.isEven(2), true);
+    });
+
+    it('returns a trimmed string', () => {
+        assert.strictEqual(_.trim('\n a '), 'a');
+    });
+
+    it('return an array joined by a delimiter', () => {
+        assert.strictEqual(['a', 'b', 'c'].reduce(_.joining(", ")), 'a, b, c');
     });
 
     it('computes whether a number is divisible by all divisors', () => {

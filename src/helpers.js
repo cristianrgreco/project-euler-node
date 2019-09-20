@@ -2,7 +2,15 @@ module.exports.sum = (a, b) => a + b;
 
 module.exports.product = (a, b) => a * b;
 
+module.exports.power = power => x => Math.pow(x, power);
+
 module.exports.last = (a, b) => b;
+
+module.exports.trim = str => str.trim();
+
+module.exports.joining = delimiter => (acc, next) => acc + delimiter + next;
+
+module.exports.toNumber = any => Number(any);
 
 module.exports.range = (start, end) => {
     const numbers = [];
