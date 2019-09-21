@@ -102,7 +102,7 @@ const isPrime = x => {
     return true;
 };
 
-module.exports.nthPrime = n => {
+module.exports.primes = n => {
     const gridSize = Math.ceil(n * Math.log(n * Math.log(n)));
 
     const grid = this.range(0, gridSize).fill(true);
@@ -117,10 +117,11 @@ module.exports.nthPrime = n => {
         }
     }
 
-    const primes =  grid
+    return grid
         .map((x, i) => [x, i])
         .filter(([x]) => x === true)
-        .map(([, i]) => i);
-
-    return primes[n - 1];
+        .map(([, i]) => i)
+        .slice(0, n)
 };
+
+module.exports.approximateNthPrime = x => x / Math.log(x / Math.log(x));

@@ -7,5 +7,5 @@
 const _ = require('./helpers');
 
 module.exports = () => {
-    return _.nthPrime(10001);
+    return _.primes(10001).reduce(_.last);
 };

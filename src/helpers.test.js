@@ -68,7 +68,7 @@ describe('helpers', () => {
         assert.strictEqual(_.isPalindrome("aba"), true);
     });
 
-    it('computes the nth prime', () => {
-        assert.strictEqual(_.nthPrime(10), 29);
+    it('computes the prime numbers up to n', () => {
+        assert.deepStrictEqual(_.primes(10), [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]);
     });
 });
