@@ -91,3 +91,36 @@ module.exports.isPalindrome = x => {
 
     return true;
 };
+
+const isPrime = x => {
+    for (let i = 2; i <= Math.sqrt(x); i++) {
+        if (x % i === 0) {
+            return false;
+        }
+    }
+
+    return true;
+};
+
+module.exports.nthPrime = n => {
+    const gridSize = Math.ceil(n * Math.log(n * Math.log(n)));
+
+    const grid = this.range(0, gridSize).fill(true);
+    grid[0] = false;
+    grid[1] = false;
+
+    for (let i = 2; i <= Math.sqrt(gridSize); i++) {
+        if (isPrime(i)) {
+            for (let j = i + i; j < gridSize; j += i) {
+                grid[j] = false;
+            }
+        }
+    }
+
+    const primes =  grid
+        .map((x, i) => [x, i])
+        .filter(([x]) => x === true)
+        .map(([, i]) => i);
+
+    return primes[n - 1];
+};
