@@ -67,6 +67,10 @@ module.exports.primeFactors = x => {
         }
     }
 
+    if (mutableX > 1) {
+        primeFactors.push(mutableX);
+    }
+
     return primeFactors;
 };
 
@@ -124,4 +128,55 @@ module.exports.primes = n => {
         .slice(0, n)
 };
 
-module.exports.approximateNthPrime = x => x / Math.log(x / Math.log(x));
+module.exports.approximateNthPrime = x => Math.ceil(x / Math.log(x / Math.log(x)));
+
+module.exports.lcm = (total, next) => {
+    const totalPrimeFactorsAggregate = this.primeFactors(total)
+        .reduce((aggregate, nextFactor) => {
+            if (aggregate[nextFactor] === undefined) {
+                aggregate[nextFactor] = 1;
+            } else {
+                const current = aggregate[nextFactor];
+                aggregate[nextFactor] = current + 1;
+            }
+            return aggregate;
+        }, {});
+
+    const nextPrimeFactorsAggregate = this.primeFactors(next)
+        .reduce((aggregate, nextFactor) => {
+            if (aggregate[nextFactor] === undefined) {
+                aggregate[nextFactor] = 1;
+            } else {
+                const current = aggregate[nextFactor];
+                aggregate[nextFactor] = current + 1;
+            }
+            return aggregate;
+        }, {});
+
+    const aggregate = {};
+
+    Object.entries(totalPrimeFactorsAggregate).forEach(([primeFactor, count]) => {
+        if (aggregate[primeFactor] === undefined) {
+            aggregate[primeFactor] = count;
+        } else {
+            const currentCount = aggregate[primeFactor];
+            if (count > currentCount) {
+                aggregate[primeFactor] = count;
+            }
+        }
+    });
+
+    Object.entries(nextPrimeFactorsAggregate).forEach(([primeFactor, count]) => {
+        if (aggregate[primeFactor] === undefined) {
+            aggregate[primeFactor] = count;
+        } else {
+            const currentCount = aggregate[primeFactor];
+            if (count > currentCount) {
+                aggregate[primeFactor] = count;
+            }
+        }
+    });
+
+    return Object.entries(aggregate)
+        .reduce((x, [primeFactor, count]) => x * Math.pow(Number(primeFactor), count), 1);
+};

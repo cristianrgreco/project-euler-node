@@ -6,12 +6,5 @@
 const _ = require('./helpers');
 
 module.exports = () => {
-    const divisors = _.range(1, 20);
-    const multiple = divisors.reduce(_.product);
-
-    for (let i = 1; i < multiple; i++) {
-        if (_.isDivisible(i, _.allOf(divisors))) {
-            return i;
-        }
-    }
+    return _.range(1, 20).reduce(_.lcm);
 };

@@ -55,6 +55,7 @@ describe('helpers', () => {
     });
 
     it('computes the prime factors', () => {
+        assert.deepStrictEqual(_.primeFactors(3), [3]);
         assert.deepStrictEqual(_.primeFactors(6), [2, 3]);
         assert.deepStrictEqual(_.primeFactors(12), [2, 2, 3]);
     });
@@ -70,5 +71,11 @@ describe('helpers', () => {
 
     it('computes the prime numbers up to n', () => {
         assert.deepStrictEqual(_.primes(10), [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]);
+    });
+
+    it('computes the lowest common multiple', () => {
+        assert.strictEqual([2, 3, 4, 5].reduce(_.lcm), 60);
+        assert.strictEqual([420, 8].reduce(_.lcm), 840);
+        assert.strictEqual(_.range(1, 10).reduce(_.lcm), 2520);
     });
 });
