@@ -30,6 +30,11 @@ module.exports.anyOf = xs => predicate => xs.some(predicate);
 
 module.exports.allOf = xs => predicate => xs.every(predicate);
 
+module.exports.flatten = (acc, next) => {
+    next.forEach(e => acc.push(e));
+    return acc;
+};
+
 module.exports.fibWhile = predicate => {
     const fibonacciNumbers = [];
 
@@ -63,4 +68,26 @@ module.exports.primeFactors = x => {
     }
 
     return primeFactors;
+};
+
+module.exports.isPalindrome = x => {
+    const xs = String(x);
+
+    if (xs.length === 0) {
+        return false;
+    }
+
+    let a = 0;
+    let b = xs.length - 1;
+
+    while (a <= xs.length / 2) {
+        if (xs[a] !== xs[b]) {
+            return false;
+        }
+
+        a++;
+        b--;
+    }
+
+    return true;
 };

@@ -10,7 +10,7 @@ describe('helpers', () => {
         assert.strictEqual([3, 3].reduce(_.product), 9);
     });
 
-    it('raises a number to the given power', () => {
+    it('computes a number raised to the given power', () => {
         assert.strictEqual(_.power(3)(2), 8);
     });
 
@@ -22,7 +22,7 @@ describe('helpers', () => {
         assert.deepStrictEqual(_.range(1, 3), [1, 2, 3]);
     });
 
-    it('returns whether a value is even', () => {
+    it('computes whether a value is even', () => {
         assert.strictEqual(_.isEven(1), false);
         assert.strictEqual(_.isEven(2), true);
     });
@@ -33,6 +33,10 @@ describe('helpers', () => {
 
     it('return an array joined by a delimiter', () => {
         assert.strictEqual(['a', 'b', 'c'].reduce(_.joining(", ")), 'a, b, c');
+    });
+
+    it('returns a flattened array', () => {
+        assert.deepStrictEqual([[1], [2], [3]].reduce(_.flatten), [1, 2, 3]);
     });
 
     it('computes whether a number is divisible by all divisors', () => {
@@ -53,5 +57,14 @@ describe('helpers', () => {
     it('computes the prime factors', () => {
         assert.deepStrictEqual(_.primeFactors(6), [2, 3]);
         assert.deepStrictEqual(_.primeFactors(12), [2, 2, 3]);
+    });
+
+    it('computes whether a value is a palindrome', () => {
+        assert.strictEqual(_.isPalindrome(""), false);
+        assert.strictEqual(_.isPalindrome("ab"), false);
+
+        assert.strictEqual(_.isPalindrome("a"), true);
+        assert.strictEqual(_.isPalindrome("aa"), true);
+        assert.strictEqual(_.isPalindrome("aba"), true);
     });
 });
