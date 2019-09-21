@@ -130,28 +130,25 @@ module.exports.primes = n => {
 
 module.exports.approximateNthPrime = x => Math.ceil(x / Math.log(x / Math.log(x)));
 
+module.exports.groupBy = groupingFn => (group, element) => groupingFn(group, element);
+
+module.exports.frequency = (group, element) => {
+    if (group[element] === undefined) {
+        group[element] = 1;
+    } else {
+        const current = group[element];
+        group[element] = current + 1;
+    }
+
+    return group;
+};
+
 module.exports.lcm = (total, next) => {
     const totalPrimeFactorsAggregate = this.primeFactors(total)
-        .reduce((aggregate, nextFactor) => {
-            if (aggregate[nextFactor] === undefined) {
-                aggregate[nextFactor] = 1;
-            } else {
-                const current = aggregate[nextFactor];
-                aggregate[nextFactor] = current + 1;
-            }
-            return aggregate;
-        }, {});
+        .reduce(this.groupBy(this.frequency), {});
 
     const nextPrimeFactorsAggregate = this.primeFactors(next)
-        .reduce((aggregate, nextFactor) => {
-            if (aggregate[nextFactor] === undefined) {
-                aggregate[nextFactor] = 1;
-            } else {
-                const current = aggregate[nextFactor];
-                aggregate[nextFactor] = current + 1;
-            }
-            return aggregate;
-        }, {});
+        .reduce(this.groupBy(this.frequency), {});
 
     const aggregate = {};
 
