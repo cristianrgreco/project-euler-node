@@ -22,6 +22,11 @@ describe('helpers', () => {
         assert.deepStrictEqual(_.range(1, 3), [1, 2, 3]);
     });
 
+    it('returns an inclusive range while a predicate is true', () => {
+        assert.deepStrictEqual(_.rangeWhile(1, x => x < 4), [1, 2, 3]);
+        assert.deepStrictEqual(_.rangeWhile(1, (x, i) => i < 4), [1, 2, 3, 4]);
+    });
+
     it('computes whether a value is even', () => {
         assert.strictEqual(_.isEven(1), false);
         assert.strictEqual(_.isEven(2), true);
@@ -50,14 +55,20 @@ describe('helpers', () => {
     });
 
     it('computes a fibonacci range while predicate is satisfied', () => {
-        assert.deepStrictEqual(_.fibWhile((x, i) => i < 3), [1, 2, 3]);
         assert.deepStrictEqual(_.fibWhile((x, i) => x < 3), [1, 2]);
+        assert.deepStrictEqual(_.fibWhile((x, i) => i < 3), [1, 2, 3]);
     });
 
     it('computes the prime factors', () => {
         assert.deepStrictEqual(_.primeFactors(3), [3]);
         assert.deepStrictEqual(_.primeFactors(6), [2, 3]);
         assert.deepStrictEqual(_.primeFactors(12), [2, 2, 3]);
+    });
+
+    it('computes the factors', () => {
+        assert.deepStrictEqual(_.factors(3), [1, 3]);
+        assert.deepStrictEqual(_.factors(6), [1, 2, 3, 6]);
+        assert.deepStrictEqual(_.factors(28), [1, 2, 4, 7, 14, 28]);
     });
 
     it('computes whether a value is a palindrome', () => {
@@ -77,5 +88,10 @@ describe('helpers', () => {
         assert.strictEqual([2, 3, 4, 5].reduce(_.lcm), 60);
         assert.strictEqual([420, 8].reduce(_.lcm), 840);
         assert.strictEqual(_.range(1, 10).reduce(_.lcm), 2520);
+    });
+
+    it('computes triangular numbers while predicate is satisfied', () => {
+        assert.deepStrictEqual(_.triangularNumbersWhile((x, i) => x < 10), [1, 3, 6]);
+        assert.deepStrictEqual(_.triangularNumbersWhile((x, i) => i < 10), [1, 3, 6, 10, 15, 21, 28, 36, 45, 55]);
     });
 });

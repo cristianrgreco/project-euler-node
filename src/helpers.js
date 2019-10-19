@@ -22,6 +22,21 @@ module.exports.range = (start, end) => {
     return numbers;
 };
 
+module.exports.rangeWhile = (start, predicate) => {
+    const numbers = [];
+
+    let num = start;
+    let i = 0;
+
+    while (predicate(num, i)) {
+        numbers.push(num);
+        num++;
+        i++;
+    }
+
+    return numbers;
+};
+
 module.exports.isEven = x => x % 2 === 0;
 
 module.exports.isDivisible = (x, fn) => fn(y => x % y === 0);
@@ -72,6 +87,21 @@ module.exports.primeFactors = x => {
     }
 
     return primeFactors;
+};
+
+module.exports.ascending = (a, b) => a - b;
+
+module.exports.factors = x => {
+    const factors = new Set();
+
+    for (let i = 1; i <= Math.ceil(Math.sqrt(x)); i++) {
+        if (x % i === 0) {
+            factors.add(i);
+            factors.add(x / i);
+        }
+    }
+
+    return Array.from(factors.values()).sort(this.ascending);
 };
 
 module.exports.isPalindrome = x => {
@@ -176,4 +206,20 @@ module.exports.lcm = (total, next) => {
 
     return Object.entries(aggregate)
         .reduce((x, [primeFactor, count]) => x * Math.pow(Number(primeFactor), count), 1);
+};
+
+module.exports.triangularNumbersWhile = predicate => {
+    const numbers = [];
+
+    let x = 1;
+    let i = 1;
+
+    while (predicate(x, i - 1)) {
+        numbers.push(x);
+
+        i++;
+        x = (Math.pow(i, 2) + i) / 2;
+    }
+
+    return numbers;
 };
